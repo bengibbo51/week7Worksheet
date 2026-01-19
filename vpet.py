@@ -5,9 +5,6 @@
 # When an instance of VirtualPet is created, only the name is needed, as a minimum, for the __init__ method
 
 
-
-
-
 # This class has the following methods:
 # (1) play() - If energy<2, report in the format "{name} is too tired to play!".
 #     Otherwise simulate playing by reducing the energy by 2 and increase the hunger by 2.
@@ -22,44 +19,53 @@
 # Check that attributes are modified as expected
 # For example:
 
+
 class VirtualPet:
-    def __init__(self, name, energy = 10, hunger = 0):
+    """Represents a virtual pet with energy and hunger levels."""
+
+    def __init__(self, name, energy=10, hunger=0):
         self.name = name
         self.energy = energy
         self.hunger = hunger
 
-
     def play(self):
+        """Allows the pet to play costing energy and increasing hunger"""
         if self.energy < 2:
             return f"{self.name} is too tired to play!"
         else:
-            self.energy = self.energy - 2
-            self.hunger = self.hunger + 2
+            self.energy -= 2
+            self.hunger += 2
 
     def feed(self):
-        self.hunger = self.hunger - 3
+        # Feeding reduces hunger
+        self.hunger -= 3
+
         if self.hunger < 0:
-            self.hunger = self.hunger = 0
+            self.hunger = 0
             return f"{self.name} is overfed!"
 
     def sleep(self):
-        self.energy = self.energy + 10
+        """Restores the pet's energy."""
+        self.energy += 10
 
     def __str__(self):
+        # String representation for printing the pet's state
         return f"{self.name} has {self.energy} energy points and hunger level {self.hunger}"
-    
+
     def __eq__(self, other):
+        # Ensure comparison is with another VirtualPet
         if not isinstance(other, VirtualPet):
             return False
-        return (self.name == other.name and 
-                self.energy == other.energy and 
-                self.hunger == other.hunger)
+        
+        return (
+            self.name == other.name and
+            self.energy == other.energy and
+            self.hunger == other.hunger
+        )
 
-#pet = VirtualPet("Timmy",4,3)
-#print(pet)
 
-
-Pet = VirtualPet("Timmy",4,3)
+# Example usage
+Pet = VirtualPet("Timmy", 4, 3)
 print(Pet)
 Pet.play()
 print(Pet)
@@ -67,3 +73,4 @@ Pet.feed()
 print(Pet)
 Pet.sleep()
 print(Pet)
+
